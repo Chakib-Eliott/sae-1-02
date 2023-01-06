@@ -2,7 +2,7 @@ import random
 import importlib
 
 #mettre à False pour ne plus avoir de sortie dans le terminal
-RAPPORT = False
+RAPPORT = True
 
 #deck standard
 tresors = [1,2,3,4,5,5,7,7,9,1,1,13,14,15,17] 

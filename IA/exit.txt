@@ -1,0 +1,55 @@
+
+5|3|IA_BARKER_OUALI,IA_trouillarde,IA_trouillarde|0
+X,R,R|P5
+1
+mmh
+X,N,N|1
+1
+POCHES : 1
+X,N,N|2
+1
+POCHES : 3
+R,N,N|N
+R
+POCHES : 3
+COFFRE : 3
+
+X,R,R|13
+1
+POCHES : 13
+X,N,N|9
+1
+POCHES : 22
+R,N,N|N
+R
+POCHES : 22
+COFFRE : 25
+
+X,R,R|9
+1
+POCHES : 9
+X,N,N|14
+1
+POCHES : 23
+R,N,N|N
+R
+POCHES : 23
+COFFRE : 48
+
+X,R,R|1
+1
+POCHES : 1
+R,N,N|N
+R
+POCHES : 1
+COFFRE : 49
+
+X,R,R|14
+1
+POCHES : 14
+R,N,N|N
+R
+POCHES : 14
+COFFRE : 63
+END
+63,0,0
