@@ -9,12 +9,12 @@ import random
 FICHIERRECAP = True
 
 
-def ecrire_fichier(data: str, data2=False):
+def ecrire_fichier(data, data2=False):
     """Ecrit dans le fichier exit.txt les données passées en paramètre
     ou dans le fichier infos.txt.
 
     Args:
-        data (str): données à écrire dans le fichier.
+        data: données à écrire dans le fichier.
         data2 (bool, optional): si True, écrit dans le fichier infos.txt.
     """
     if FICHIERRECAP:
