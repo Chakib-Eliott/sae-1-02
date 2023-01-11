@@ -9,7 +9,14 @@ import random
 FICHIERRECAP = True
 
 
-def ecrire_fichier(data, data2=False):
+def ecrire_fichier(data: str, data2=False):
+    """Ecrit dans le fichier exit.txt les données passées en paramètre
+    ou dans le fichier infos.txt.
+
+    Args:
+        data (str): données à écrire dans le fichier.
+        data2 (bool, optional): si True, écrit dans le fichier infos.txt.
+    """
     if FICHIERRECAP:
         if not data2:
             with open('IA/exit.txt', 'a') as f:
@@ -20,6 +27,10 @@ def ecrire_fichier(data, data2=False):
 
 
 class IA_Diamant:
+    """Classe IA_Diamant.
+
+    Classe qui contient les méthodes de l'IA.
+    """
 
     def __init__(self, match: str):  # Ne pas changer les paramètres
         """génère l'objet de la classe IA_Diamant
@@ -63,7 +74,7 @@ class IA_Diamant:
             'R10': 2
         }  # dictionnaires des cartes restantes (carte : nombre de cartes)
 
-    def info_manche_ia(self, tour: str):
+    def info_manche_ia(self, tour: str) -> None:
         """Appelé à chaque action afin de récupérer les informations concernant notre IA.
         Permet d'enregistrer les informations dans les variables comme par exemple
         les diamants temporaire et relique de notre IA.
@@ -108,10 +119,11 @@ class IA_Diamant:
                     self.reliques.append(self.reliqueattente[0])
                     self.cartesrestantes['R'+str(self.reliqueattente[0])] -= 1
 
-    def info_joueurs(self, tour: str):
+    def info_joueurs(self, tour: str) -> None:
         """Appelé à chaque action afin de récupérer les informations concernant les autres joueurs.
         Permet d'enregistrer les informations dans les variables comme par exemple
         les diamants sécurisés et reliques des autres joueurs.
+
         Args:
             tour (str): descriptif du dernier tour
         """
@@ -119,11 +131,11 @@ class IA_Diamant:
         for joueur in info:
             pass
 
-    def lebonchoix(self):
-        """Appelé à chaque action du joueur
+    def lebonchoix(self) -> str:
+        """Algorithme de décision de l'IA.
         
         Returns: 
-            X ou R
+            str: le choix de l'IA
         """
         if random.randint(0, 1) == 0:
             return 'X'
@@ -193,7 +205,12 @@ class IA_Diamant:
         with open('IA/exit.txt', 'a') as f:
             f.write('END\n'+scores)
 
-    def generation_stat_joueur(self):
+    def generation_stat_joueur(self) -> dict:
+        """Génère les statistiques des joueurs
+
+        Returns:
+            dict: les statistiques des joueurs
+        """
         stat = {}
         nb_joueur = int(self.match.split('|')[1])
         for i in range(nb_joueur):
