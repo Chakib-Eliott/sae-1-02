@@ -5,7 +5,7 @@ import importlib
 RAPPORT = True
 
 #deck standard
-tresors = [1,2,3,4,5,5,7,7,9,1,1,13,14,15,17] 
+tresors = [1,2,3,4,5,5,7,7,9,11,11,13,14,15,17] 
 pieges = {"P1" : 3, "P2" : 3, "P3" : 3, "P4" : 3, "P5" : 3}
 valeurs_reliques = [5,5,5,10,10]
 
@@ -19,28 +19,28 @@ valeurs_reliques = [5,5,5,10,10]
 class Match:
     """infos constantes pendant toute la partie"""
     def __init__(self, nb_manches : int, nb_joueurs : int, noms_joueurs : list, IA):
-        self.nb_manches = nb_manches
+        self.nb_manches = nb_manches   
         self.nb_joueurs = nb_joueurs
-        self.noms_joueurs : noms_joueurs
+        self.noms_joueurs : noms_joueurs # c'est aussi le nom des fichiers IA
         self.IA = IA
 
 class Etat_Jeu:
     """infos qui évoluent en cours de partie pendant toute la partie"""
     def __init__(self, nb_joueurs : int, deck : list):
-        self.scores = [0] * nb_joueurs
-        self.nb_reliques_gagnees = 0
-        self.deck = deck
-        self.dernier_tour_str = ""
+        self.scores = [0] * nb_joueurs  # scores dans les coffres
+        self.nb_reliques_gagnees = 0    # nb total de reliques gagnées par les joueurs
+        self.deck = deck                # le deck de carte, dont les cartes seront révélées
+        self.dernier_tour_str = ""      # message pour les IAs
 
 class Infos_Manche:
     """infos valables juste pendant cette manche"""
     def __init__(self, nb_joueurs):
-        self.scores_manches = [0] * nb_joueurs
-        self.en_lice = [True] * nb_joueurs
-        self.premier_indice_pioche = 0
-        self.rubis_en_jeu = 0
-        self.nb_reliques_en_jeu = 0
-        self.pieges_reveles = []
+        self.scores_manches = [0] * nb_joueurs  # scores temporaires de manche
+        self.en_lice = [True] * nb_joueurs      # joueurs non rentrés au camp
+        self.premier_indice_pioche = 0          # première carte non révélée du deck
+        self.rubis_en_jeu = 0                   # total des rubis sur les cartes
+        self.nb_reliques_en_jeu = 0             # total de relique actuellement à prendre
+        self.pieges_reveles = []                # les pièges révélés actuellement
     
   
 ##############################################################################
@@ -52,7 +52,8 @@ def charge_IAs(joueurs : list, match : Match):
     """Charge les objets IA contenus dans les fichiers (noms des joueurs) donnés
     
     Args:
-        joueurs [str]: noms des joueurs
+        joueurs ([str]): noms des joueurs
+        match (Match) : infos match
     Returns:
         list : liste des objet IAs par chaque indice de joueur
 
@@ -115,11 +116,11 @@ def partie_diamant(nb_manches : int, joueurs : list):
         
 
 def manche(match : Match, ej : Etat_Jeu):
-    """_summary_
+    """Simule une manche du jeu
 
     Args:
-        etat (_type_): _description_
-        joueurs (_type_): _description_
+        match (Match): infos match
+        ej (Etat_Jeu): état actuel du jeu
     """    
 
     manche = Infos_Manche(match.nb_joueurs)
@@ -140,6 +141,10 @@ def manche(match : Match, ej : Etat_Jeu):
     #boucle principale de manche
     fin_de_manche = ""
 
+    #premier tour sans décision des joueurs
+    fin_de_manche = tour_de_jeu(match, manche, ej, premier_tour=True)
+
+    #tours suivants
     while not fin_de_manche:
         fin_de_manche = tour_de_jeu(match, manche, ej)
 
@@ -151,19 +156,25 @@ def manche(match : Match, ej : Etat_Jeu):
     if RAPPORT:
         print("FIN MANCHE")    
 
-def tour_de_jeu(match : Match, manche : Infos_Manche, ej : Etat_Jeu):
+def tour_de_jeu(match : Match, manche : Infos_Manche, ej : Etat_Jeu, premier_tour = False):
     """Simule un tour de jeu : chaque joueur choisit son action, on révèle une carte, on assigne les scores
 
     Args:
-        etat_jeu (_type_): _description_
-        IAs (_type_): _description_
+        match (Match) : infos match
+        manche (Infos_Manche) : manche en cours
+        etat_jeu (Etat_Jeu): jeu en cours
+
+    Returns:
+        fin_de_manche (str) : indique si la manche est finie par 'R' si tout le monde
+        est rentrée ou bien par le nom du piège déclenché ("" si la partie n'est pas finie)
+        
     """
 
     #valeurs par défaut
     fin_de_manche = ""
     nouvelle_carte = 'N'
 
-    if RAPPORT:
+    if RAPPORT and not premier_tour:
         print('  DEBUT TOUR')
         print("    rubis en jeu:",manche.rubis_en_jeu,",reliques en jeu:",manche.nb_reliques_en_jeu,",pieges:",manche.pieges_reveles)
             
@@ -172,14 +183,17 @@ def tour_de_jeu(match : Match, manche : Infos_Manche, ej : Etat_Jeu):
     decisions = {'X':[], 'R':[], 'N':[]}
     choix = [None]*match.nb_joueurs
     
-    
-    for i in range(match.nb_joueurs):
-        choix[i] = match.IA[i].action(ej.dernier_tour_str) #renvoie X pour eXplorer ou R pour Rentrer
-        if not manche.en_lice[i]:
-            choix[i] = 'N'
-        decisions[choix[i]].append(i)
+    if premier_tour:
+        choix = ['X']*match.nb_joueurs
+        decisions["X"] = list(range(match.nb_joueurs))
+    else:
+        for i in range(match.nb_joueurs):
+            choix[i] = match.IA[i].action(ej.dernier_tour_str) #renvoie X pour eXplorer ou R pour Rentrer
+            if not manche.en_lice[i]:
+                choix[i] = 'N'
+            decisions[choix[i]].append(i)
 
-    if RAPPORT:
+    if RAPPORT and not premier_tour:
         print('    choix des joueurs:',choix)
 
     #ceux qui rentrent
