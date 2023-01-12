@@ -45,7 +45,7 @@ class IA_Diamant:
             f.write('\n'+match+'\n')
         self.match = match
         self.manche = 1  # Manche actuelle
-        self.tour =  0  # Tour actuel
+        self.tour = 0  # Tour actuel
         self.piegesorties = []  # Liste des pièges sortis
         self.cartesorties = []  # Liste des cartes sorties
         self.reliqueattente = []  # Liste des reliques en attente
@@ -142,8 +142,8 @@ class IA_Diamant:
         # Vérifie qu'il y a des IA sortant
         if nombre_sortant > 0:    
             # Calcul le nombre de diamants par IA sortant
-            diamants_sortant = self.diamantattente//nombre_sortant
-            self.diamantattente = self.diamantattente%nombre_sortant  # Retire les diamants de l'attente
+            diamants_sortant = self.diamantattente // nombre_sortant
+            self.diamantattente = self.diamantattente % nombre_sortant  # Retire les diamants de l'attente
             # Parcours les IA sorties
             for ia in self.iasorties:
                 self.statsia[ia][2] += diamants_sortant  # Ajoute les diamants aux IA sortant
@@ -152,14 +152,13 @@ class IA_Diamant:
                     self.attribution_relique(ia)  # Attribue la relique à l'IA
         
         diamantattente = None
-        carte_tresor = None
         # Vérifie que la carte est un diamant et qu'il y a des IA explorant
-        if info[1] in [str(y) for y in range(20)] and nombre_explorant>0:
+        if info[1] in [str(y) for y in range(20)] and nombre_explorant > 0:
             carte_tresor = int(info[1])  # Récupère la carte
             self.cartesorties.append(carte_tresor)  # Ajoute la carte dans la liste des cartes sorties
-            diamants_par_psr = carte_tresor//nombre_explorant
+            diamants_par_psr = carte_tresor // nombre_explorant
             # Calcul le nombre de diamants en attente pour les attribuer après les attributions de points.
-            diamantattente = carte_tresor%nombre_explorant
+            diamantattente = carte_tresor % nombre_explorant
         
             # Parcours les IA explorant
             for ia in self.iaexplorant:
@@ -244,7 +243,7 @@ class IA_Diamant:
                 risque = 0
             else:
                 diamants, reliques, pieges = 0, 0, 0
-                for k,v in self.cartesrestantes.items():
+                for k, v in self.cartesrestantes.items():
                     
                     if type(k) != int:
                         if k.startswith('P'):  # Vérifie que la carte est un piège
@@ -273,7 +272,6 @@ class IA_Diamant:
             return 'X'  # Explore
         else:
             return 'R'  # Sort
-                
 
     def action(self, tour: str) -> str:  # Ne pas changer les paramètres
         """Appelé à chaque décision de l'IA
@@ -347,7 +345,6 @@ class IA_Diamant:
         ecrire_fichier('CARTES RESTANTES'+str(self.cartesrestantes), True)
         ecrire_fichier('PIEGES SORTIS'+str(self.piegesorties), True)
         ecrire_fichier("------------------", True)
-        
 
     def game_over(self, scores: str) -> None:  # Ne pas changer les paramètres
         """Appelé à la fin du jeu

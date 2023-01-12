@@ -5,22 +5,23 @@
 # Dans ce fichier que vous pouvez compléter vous lancez vos expérimentations
 
 from moteur_diamant_simu import partie_diamant
+import numpy as np
 
 stats = {}
 
 if __name__ == '__main__':
 
-
-    for i in range(100):
+    for i in np.arange(85,87,0.01):
         stats[i] = []
-        for j in range(5):
+        for j in range(500):
             stats[i].append(partie_diamant(5,['IA_BARKER_OUALI', 'IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire'], i))
 
-print(stats)
+# print(stats)
 
-for k,v in stats.items():
+for k, v in stats.items():
     print(k, end=': ')
-    score_moyen = 0
+    tauxv = 0
     for i in v:
-        score_moyen += i[0]
-    print(score_moyen/len(v))
+        if i[0] == max(i):
+            tauxv += 1
+    print(tauxv/len(v) * 100)
