@@ -13,7 +13,7 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        print("IA temeraire reçoit match = '" + match + "'")
+        #print("IA temeraire reçoit match = '" + match + "'")
 
     def action(self, tour : str) -> str:
         """Appelé à chaque décision du joueur IA
@@ -26,7 +26,7 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        print("    IA temeraire reçoit tour = '" + tour + "'")
+        #print("    IA temeraire reçoit tour = '" + tour + "'")
 
 
         return 'X'
@@ -41,7 +41,7 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        print("  IA temeraire reçoit en fin de manche raison = '" + raison + "' et dernier_tour = '" + dernier_tour + "'" )
+        #print("  IA temeraire reçoit en fin de manche raison = '" + raison + "' et dernier_tour = '" + dernier_tour + "'" )
 
 
     def game_over(self, scores : str) -> None:
@@ -52,5 +52,5 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        print("IA temeraire reçoit en fin de jeu scores = '" + scores +"'")
+        #print("IA temeraire reçoit en fin de jeu scores = '" + scores +"'")
 

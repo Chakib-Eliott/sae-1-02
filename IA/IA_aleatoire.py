@@ -13,7 +13,7 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        print("IA aléatoire reçoit match = '" + match + "'")
+        #print("IA aléatoire reçoit match = '" + match + "'")
 
     def action(self, tour : str) -> str:
         """Appelé à chaque décision du joueur IA
@@ -26,7 +26,7 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        print("    IA aléatoire reçoit tour = '" + tour + "'")
+        #print("    IA aléatoire reçoit tour = '" + tour + "'")
 
 
         if random.randint(0,1) == 0:
@@ -43,7 +43,7 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        print("  IA aléatoire reçoit en fin de manche raison = '" + raison + "' et dernier_tour = '" + dernier_tour + "'" )
+        #print("  IA aléatoire reçoit en fin de manche raison = '" + raison + "' et dernier_tour = '" + dernier_tour + "'" )
 
 
     def game_over(self, scores : str) -> None:
@@ -54,5 +54,5 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        print("IA aléatoire reçoit en fin de jeu scores = '" + scores +"'")
+        #print("IA aléatoire reçoit en fin de jeu scores = '" + scores +"'")
 
