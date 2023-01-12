@@ -48,7 +48,7 @@ class Infos_Manche:
 ##############################################################################
 
 
-def charge_IAs(joueurs : list, match : Match):
+def charge_IAs(joueurs : list, match : Match, risquevarsimu):
     """Charge les objets IA contenus dans les fichiers (noms des joueurs) donnés
     
     Args:
@@ -64,7 +64,10 @@ def charge_IAs(joueurs : list, match : Match):
     for i in range(len(joueurs)):
         #imp = __import__("IA."+nom_fichier)
         imp = importlib.import_module("IA." + joueurs[i])
-        list_ia.append(imp.IA_Diamant(match + "|" + str(i)))
+        try:
+            list_ia.append(imp.IA_Diamant(match + "|" + str(i), risquevarsimu))
+        except:
+            list_ia.append(imp.IA_Diamant(match + "|" + str(i)))
 
     return list_ia
 
@@ -73,7 +76,7 @@ def charge_IAs(joueurs : list, match : Match):
 ##############################################################################
 
 
-def partie_diamant(nb_manches : int, joueurs : list):
+def partie_diamant(nb_manches : int, joueurs : list, risquevarsimu):
     """
     Simule une partie du jeu diamant
 
@@ -97,7 +100,7 @@ def partie_diamant(nb_manches : int, joueurs : list):
     match_str = "|".join(map(str,[nb_manches,len(joueurs),",".join(joueurs)]))
 
     #chargement des IA
-    IAs = charge_IAs(joueurs, match_str)
+    IAs = charge_IAs(joueurs, match_str, risquevarsimu)
     match.IA = IAs
 
 
