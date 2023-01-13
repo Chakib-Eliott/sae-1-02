@@ -33,13 +33,13 @@ class IA_Diamant:
     Classe qui contient les méthodes de l'IA.
     """
 
-    def __init__(self, match: str, risquevarsimu):  # Ne pas changer les paramètres
+    def __init__(self, match: str):  # Ne pas changer les paramètres
         """génère l'objet de la classe IA_Diamant
 
         Args:
             match (str): decriptif de la partie
         """
-        self.risquevarsimu = risquevarsimu
+        self.risquevarsimu = 86.42
         # ecrire_fichier('\n'+match)
         with open('IA/exit.txt', 'w') as f:
             f.write('\n'+match+'\n')
@@ -130,7 +130,6 @@ class IA_Diamant:
         Args:
             tour (str): descriptif du dernier tour
         """
-        assert len(tour) >= 9, 'Tour non conforme'
         
         info = tour.split('|')
         # Récupère le choix des IA
@@ -287,8 +286,6 @@ class IA_Diamant:
         Returns:
             str: 'X' ou 'R'
         """
-        assert len(tour) >= 9, 'Tour non conforme'
-        
         self.info_ia(tour)  # Appel la fonction pour actualiser les informations récupérés du tour.
         self.tour += 1  # Incrémente le tour
         ecrire_fichier(tour)

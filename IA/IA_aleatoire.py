@@ -43,7 +43,7 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        #print("  IA aléatoire reçoit en fin de manche raison = '" + raison + "' et dernier_tour = '" + dernier_tour + "'" )
+        # print("  IA aléatoire reçoit en fin de manche raison = '" + raison + "' et dernier_tour = '" + dernier_tour + "'" )
 
 
     def game_over(self, scores : str) -> None:
@@ -54,5 +54,5 @@ class IA_Diamant:
         """
 
         #laissez ou supprimez
-        #print("IA aléatoire reçoit en fin de jeu scores = '" + scores +"'")
+        # print("IA aléatoire reçoit en fin de jeu scores = '" + scores +"'")
 

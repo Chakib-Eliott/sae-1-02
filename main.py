@@ -4,17 +4,22 @@
 
 # Dans ce fichier que vous pouvez compléter vous lancez vos expérimentations
 
-from moteur_diamant_simu import partie_diamant
-import numpy as np
+from moteur_diamant import partie_diamant
+# import numpy as np
 
 stats = {}
 
 if __name__ == '__main__':
 
-    for i in np.arange(85,87,0.01):
+    # for i in np.arange(85,87,0.01):
+    #     stats[i] = []
+    #     for j in range(100):
+    #         stats[i].append(partie_diamant(5,['IA_BARKER_OUALI', 'IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire'], i))
+    for i in range(500):
         stats[i] = []
-        for j in range(500):
-            stats[i].append(partie_diamant(5,['IA_BARKER_OUALI', 'IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire','IA_aleatoire'], i))
+        for j in range(100):
+            stats[i].append(partie_diamant(5,
+                       ['IA_BARKER_OUALI', 'IA_aleatoire', 'IA_aleatoire', 'IA_aleatoire']))
 
 # print(stats)
 
